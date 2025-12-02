@@ -5,7 +5,6 @@ import { createServer } from "http";
 import cors from "cors";
 
 import roomIdRoutes from "./src/routes/roomId.routes.js";
-import { create } from "domain";
 
 const app = express();
 app.use(cors());
@@ -53,7 +52,7 @@ io.on("connection", (socket) => {
       socket.data.roomId = roomId;
       socket.data.owner = socket.id;
       socket.data.createedAt = Date.now();
-        socket.data.used = false;
+      socket.data.used = false;
       let roomInfo = room.get(roomId);
       roomInfo.owner = socket.id;
       room.set(roomId, roomInfo);
@@ -71,7 +70,8 @@ io.on("connection", (socket) => {
 
   socket.on("room-join", ({ roomId }) => {
     let roomInfo = room.get(roomId);
-    if (!room) {
+    console.log("this is room", roomInfo)
+    if (!roomInfo) {
       console.log("no rooooom");
       socket.emit("room-joined", {
         status: "failed",
@@ -79,7 +79,7 @@ io.on("connection", (socket) => {
       });
       return;
     }
-    if (roomInfo.guest) {
+    if (roomInfo?.guest) {
       console.log("room is full");
       socket.emit("room-joined", { status: "failed", message: "Room is full" });
       return;
@@ -102,7 +102,26 @@ io.on("connection", (socket) => {
 
     socket.join(roomId);
     console.log("guest joined ", roomInfo);
-    socket.emit("room-joined", { status: "success", role: "guest" });
+    socket.emit("room-joined", { status: "success", role: "guest" , roomId });
+    io.to(roomInfo.owner).emit("room-joined", { roomId });
+  });
+
+  socket.on("signal", ({ roomId, type, data }) => {
+    const rooms = room.get(roomId);
+    console.log(rooms)
+    if (!rooms) return;
+
+    let targeiD = null;
+
+    if (socket.id === rooms.owner) targeiD = rooms.guest;
+   else if (socket.id === rooms.guest) targeiD = rooms.owner;
+
+    if(!targeiD) return
+
+    console.log("this is target id", targeiD);
+    // console.log(`emitting signal ${type} to ${targeiD} and data is ${JSON.stringify(data)}`);
+
+    io.to(targeiD).emit("signal", { type, data, roomId });
   });
 });
 
