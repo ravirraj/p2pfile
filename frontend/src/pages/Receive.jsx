@@ -267,8 +267,20 @@ export default function Receive() {
       )}
 
       {isComplete && (
-        <div className="mt-4 text-center">
+        <div className="mt-4 text-center space-y-3">
           <p className="text-green-400 font-medium mb-3">Download Complete ✓</p>
+          {fileTransfer.completedBlobs.map((f, i) => (
+            <a
+              key={i}
+              href={f.url}
+              download={f.fileName}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full px-4 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm transition-colors cursor-pointer"
+            >
+              Save {f.fileName}
+            </a>
+          ))}
           <button
             onClick={() => navigate("/")}
             className="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-colors cursor-pointer"
