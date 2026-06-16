@@ -28,6 +28,7 @@ function notifyComplete(fileName) {
 export function useFileTransfer(dcRef) {
   const [transfers, setTransfers] = useState([]);
   const [incomingMeta, setIncomingMeta] = useState(null);
+  const [completedBlobs, setCompletedBlobs] = useState([]);
   const reassemblerRef = useRef(null);
   const sendingRef = useRef(false);
   const abortedRef = useRef(false);
@@ -256,13 +257,8 @@ export function useFileTransfer(dcRef) {
 
             const blob = reassembler.assemble();
             if (blob) {
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = msg.fileName;
-              a.click();
-              URL.revokeObjectURL(url);
               clearTransferState(msg.fileName);
+              setCompletedBlobs((prev) => [...prev, { fileName: msg.fileName, blob, url: URL.createObjectURL(blob) }]);
               setTransfers((prev) =>
                 prev.map((t) =>
                   t.fileName === msg.fileName
@@ -364,6 +360,7 @@ export function useFileTransfer(dcRef) {
     transfers,
     incomingMeta,
     queueLength,
+    completedBlobs,
     sendFile,
     enqueueFiles,
     setupReceiver,
