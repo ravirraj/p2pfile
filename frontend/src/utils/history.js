@@ -1,6 +1,6 @@
 import { get, set, del, keys } from "idb-keyval";
 
-const HISTORY_KEY = "sharesharp-transfer-history";
+const HISTORY_KEY = "peerflow-transfer-history";
 
 export async function addTransferToHistory(entry) {
   const list = await get(HISTORY_KEY) || [];

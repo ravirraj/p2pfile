@@ -1,4 +1,4 @@
-const CACHE = "sharesharp-v1";
+const CACHE = "peerflow-v1";
 const PRECACHE_URLS = ["/", "/index.html"];
 
 self.addEventListener("install", (event) => {

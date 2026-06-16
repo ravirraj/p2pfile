@@ -1,6 +1,6 @@
 {
-  "name": "ShareSharp",
-  "short_name": "ShareSharp",
+  "name": "PeerFlow",
+  "short_name": "PeerFlow",
   "description": "Peer-to-peer file sharing. No accounts. No cloud. Just direct transfer.",
   "start_url": "/",
   "display": "standalone",

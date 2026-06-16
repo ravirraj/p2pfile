@@ -13,7 +13,7 @@ export default function Layout() {
       <header className="border-b border-gray-700/50">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
           <NavLink to="/" className="text-lg font-bold tracking-tight text-white no-underline">
-            ShareSharp
+            PeerFlow
           </NavLink>
           <nav className="flex items-center gap-1">
             <NavLink to="/send" className={linkClass}>Send</NavLink>

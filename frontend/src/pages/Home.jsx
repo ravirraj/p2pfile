@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
     <div className="max-w-lg mx-auto px-4 pt-20 pb-12 text-center">
-      <h1 className="text-4xl font-bold tracking-tight mb-2">ShareSharp</h1>
+      <h1 className="text-4xl font-bold tracking-tight mb-2">PeerFlow</h1>
       <p className="text-gray-400 mb-10">Peer-to-peer file sharing. No accounts. No cloud. Just direct transfer.</p>
 
       <div className="grid grid-cols-2 gap-4 mb-8">

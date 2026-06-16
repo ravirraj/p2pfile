@@ -16,7 +16,7 @@ const env = {
   roomTtlMs: parseInt(process.env.ROOM_TTL_MS || "3600000", 10),
   rateLimitWindowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || "60000", 10),
   rateLimitMaxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || "20", 10),
-  jwtSecret: process.env.JWT_SECRET || "sharesharp-dev-secret",
+  jwtSecret: process.env.JWT_SECRET || "peerflow-dev-secret",
   transferTokenTTL: process.env.TRANSFER_TOKEN_TTL || "1h",
 };
 

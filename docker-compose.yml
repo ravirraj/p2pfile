@@ -7,7 +7,7 @@ services:
       - NODE_ENV=production
       - CORS_ORIGIN=http://localhost:80
       - PORT=3000
-      - TURN_SECRET=sharesharp-turn-secret
+      - TURN_SECRET=peerflow-turn-secret
     restart: unless-stopped
 
   frontend:
@@ -20,20 +20,20 @@ services:
 
   turn:
     image: coturn/coturn:latest
-    container_name: sharesharp-turn
+    container_name: peerflow-turn
     ports:
       - "3478:3478/udp"
       - "3478:3478/tcp"
     command: >
       -n
-      --realm=sharesharp.local
+      --realm=peerflow.local
       --listening-port=3478
       --min-port=49152
       --max-port=65535
       --fingerprint
       --lt-cred-mech
       --use-auth-secret
-      --static-auth-secret=sharesharp-turn-secret
+      --static-auth-secret=peerflow-turn-secret
       --no-cli
       --no-tlsv1
       --no-tlsv1_1

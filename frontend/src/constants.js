@@ -4,8 +4,8 @@ export const ICE_SERVERS = [
   { urls: "stun:stun.l.google.com:19302" },
   {
     urls: "turn:localhost:3478",
-    username: "sharesharp",
-    credential: "sharesharp-turn-secret",
+    username: "peerflow",
+    credential: "peerflow-turn-secret",
   },
 ];
 

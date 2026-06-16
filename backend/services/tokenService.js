@@ -1,7 +1,7 @@
 import { SignJWT, jwtVerify } from "jose";
 import env from "../config/env.js";
 
-const SECRET = new TextEncoder().encode(env.jwtSecret || "sharesharp-dev-secret-change-in-production");
+const SECRET = new TextEncoder().encode(env.jwtSecret || "peerflow-dev-secret-change-in-production");
 
 export async function createTransferToken(roomId, password) {
   const payload = { roomId };
