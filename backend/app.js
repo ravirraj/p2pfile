@@ -1,4 +1,5 @@
 import path from "node:path";
+import fs from "node:fs";
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -26,10 +27,10 @@ app.get("/health", (req, res) => {
 
 app.use("/api", routes);
 
-if (env.nodeEnv === "production") {
-  const frontendDist = path.resolve(process.cwd(), "frontend", "dist");
+const frontendDist = path.resolve(process.cwd(), "frontend", "dist");
+if (env.nodeEnv === "production" && fs.existsSync(frontendDist)) {
   app.use(express.static(frontendDist));
-  app.get("*", (req, res) => {
+  app.get("/{*path}", (req, res) => {
     if (!req.path.startsWith("/api") && !req.path.startsWith("/socket.io")) {
       res.sendFile(path.join(frontendDist, "index.html"));
     }
