@@ -1,0 +1,10 @@
+{
+  "name": "sharesharp",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
+    "start": "node backend/app.js",
+    "dev": "cd backend && npm run dev"
+  }
+}
