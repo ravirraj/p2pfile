@@ -6,10 +6,14 @@ const env = {
   nodeEnv: process.env.NODE_ENV || "development",
   corsOrigin: process.env.CORS_ORIGIN || "http://localhost:5173",
   get corsOrigins() {
-    if (this.corsOrigin === "auto") {
+    const origin = this.corsOrigin;
+    if (origin === "auto") {
       return this.nodeEnv === "production" ? true : "http://localhost:5173";
     }
-    return this.corsOrigin;
+    if (typeof origin === "string" && !origin.startsWith("http")) {
+      return `https://${origin}`;
+    }
+    return origin;
   },
   logLevel: process.env.LOG_LEVEL || "info",
   roomCleanupIntervalMs: parseInt(process.env.ROOM_CLEANUP_INTERVAL_MS || "300000", 10),
