@@ -8,6 +8,7 @@ import { useFileTransfer } from "../hooks/useFileTransfer.js";
 import FileList from "../components/FileList.jsx";
 import { addTransferToHistory } from "../utils/history.js";
 import { formatSize } from "../utils/format.js";
+import { saveFile } from "../utils/saveFile.js";
 
 export default function Receive() {
   const { roomId: urlRoomId } = useParams();
@@ -270,16 +271,13 @@ export default function Receive() {
         <div className="mt-4 text-center space-y-3">
           <p className="text-green-400 font-medium mb-3">Download Complete ✓</p>
           {fileTransfer.completedBlobs.map((f, i) => (
-            <a
+            <button
               key={i}
-              href={f.url}
-              download={f.fileName}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={() => saveFile(f.blob, f.fileName)}
               className="block w-full px-4 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm transition-colors cursor-pointer"
             >
               Save {f.fileName}
-            </a>
+            </button>
           ))}
           <button
             onClick={() => navigate("/")}
