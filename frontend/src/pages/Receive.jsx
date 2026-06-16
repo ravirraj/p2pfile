@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api.js";
 import PasswordDialog from "../components/PasswordDialog.jsx";
 import { useSocket } from "../hooks/useSocket.jsx";
 import { useWebRTC } from "../hooks/useWebRTC.js";
@@ -107,7 +107,7 @@ export default function Receive() {
     setStatus("loading");
     setError(null);
     try {
-      const res = await axios.get(`/api/transfers/${rid}`);
+      const res = await api.get(`/api/transfers/${rid}`);
       setTransferMeta(res.data);
       if (res.data.hasPassword) {
         setShowPassword(true);
@@ -131,7 +131,7 @@ export default function Receive() {
     setShowPassword(false);
     setStatus("loading");
     try {
-      await axios.post(`/api/transfers/${roomId}/verify-password`, { password: pw });
+      await api.post(`/api/transfers/${roomId}/verify-password`, { password: pw });
       doJoinRoom(roomId, pw);
     } catch {
       setError("Incorrect password");

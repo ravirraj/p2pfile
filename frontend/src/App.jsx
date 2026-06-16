@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import axios from "axios";
+import api from "./api.js";
 import { connectWebSocket } from "./helper/ws.js";
 import { useWebRTC } from "./hooks/useWebRTC.js";
 import { useFileTransfer } from "./hooks/useFileTransfer.js";
@@ -47,7 +47,7 @@ function App() {
   const createRoom = useCallback(async () => {
     try {
       setError(null);
-      const res = await axios.post("/api/rooms");
+      const res = await api.post("/api/rooms");
       const newRoomId = res.data.roomId;
       setRoomId(newRoomId);
       setConnectionStatus("room-created");

@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api.js";
 import QRDisplay from "../components/QRDisplay.jsx";
 import FilePreview from "../components/FilePreview.jsx";
 import { useSocket } from "../hooks/useSocket.jsx";
@@ -160,7 +160,7 @@ export default function Send() {
 
     try {
       const pw = hasPassword ? password : null;
-      const res = await axios.post("/api/transfers", { files: fileMeta, password: pw });
+      const res = await api.post("/api/transfers", { files: fileMeta, password: pw });
       const { roomId } = res.data;
 
       const link = `${window.location.origin}/receive/${roomId}`;
